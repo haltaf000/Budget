@@ -107,6 +107,7 @@ class Report(models.Model):
         self.remaining_balance = self.total_income - self.total_expenses
         self.save()
 
+'''
 class SavingsGoal(models.Model):
     name = models.CharField(max_length=255)
     target_amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -124,3 +125,4 @@ class SavingsGoal(models.Model):
         
     def __str__(self):
         return self.goal_name
+'''
