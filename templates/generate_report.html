@@ -1,0 +1,12 @@
+<!-- generate_Report.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Generate Report</h1>
+    <form method="POST" action="{% url 'generate_report' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Generate Report</button>
+    </form>
+{% endblock %}
+

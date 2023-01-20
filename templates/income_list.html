@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="rules">
+
+    <h1>Incomes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for income in incomes %}
+            <tr>
+                <td>{{ income.name }}</td>
+                <td>{{ income.amount }}</td>
+                <td>{{ income.date_received }}</td>
+                <td>
+                    <a href="{% url 'edit_income' pk=income.id  %}">Edit</a>
+                    <a href="{% url 'delete_income' pk=income.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'create_income' %}">Add Income</a>
+
+</section>
+{% endblock %}
+
+
+

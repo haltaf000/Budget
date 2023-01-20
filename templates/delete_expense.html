@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="rules">
+
+    <h1>Delete Income</h1>
+    <p>Are you sure you want to delete {{ expense.name }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'expense_list' %}">Back to income list</a>
+
+</section>
+
+{% endblock %}

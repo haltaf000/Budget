@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="rules">
+    <h1>Budget Detail</h1>
+    <h2>{{ budget.name }}</h2>
+    <table class="table table-light">
+        <tr>
+            <td>Start Date:</td>
+            <td>{{ budget.start_date }}</td>
+        </tr>
+        <tr>
+            <td>End Date:</td>
+            <td>{{ budget.end_date }}</td>
+        </tr>
+        <tr>
+            <td>Total Income:</td>
+            <td>{{ budget.total_income }}</td>
+        </tr>
+        <tr>
+            <td>Total Expense:</td>
+            <td>{{ budget.total_expense }}</td>
+        </tr>
+        <tr>
+            <td>Total Savings:</td>
+            <td>{{ budget.total_savings }}</td>
+        </tr>
+    </table>
+    <h3>Incomes</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for income in budget.income_set.all %}
+                <tr>
+                    <td>{{ income.name }}</td>
+                    <td>{{ income.amount }}</td>
+                    <td>{{ income.date_received }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

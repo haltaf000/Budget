@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="rules">
+        <div class="container">
+            <h1>Report</h1>
+            <form method="post" action="{% url 'generate_report' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Generate Report</button>
+            </form>
+
+            {% if total_income or total_expenses or budget_balance %}
+            <h2>Report Summary</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Total Income</th>
+                        <th>Total Expenses</th>
+                        <th>Remaining Balance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in reports %}
+                    <tr>
+                        <td>${{ total_income|default:0 }}</td>
+                        <td>${{ total_expenses|default:0 }}</td>
+                        <td>${{ budget_balance|default:0 }}</td>
+                        <td>
+                      
+                            <a href="{% url 'view_report' report_id=report.id %}">View</a> |
+                            <a href="{% url 'delete_report' report_id=report.id %}">Delete</a>
+                            
+                        {% endfor %}
+                        
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

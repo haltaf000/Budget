@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="rules">
+    <h1>View Report</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Income</th>
+                <th>Expenses</th>
+                <th>Remaining Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${{ total_income }}</td>
+                <td>${{ total_expenses }}</td>
+                <td>${{ budget_balance }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Incomes</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Source</th>
+                <th>Amount</th>
+                <th>Date Received</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for income in incomes %}
+            <tr>
+                <td>{{ income.name }}</td>
+                <td>{{ income.amount }}</td>
+                <td>{{ income.date_received }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Expenses</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Date Incurred</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.category }}</td>
+                <td>{{ expense.amount }}</td>
+                <td>{{ expense.date_incurred }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{% url 'delete_report' report.id %}" class="btn btn-danger">Delete Report</a>
+</section>
+{% endblock %}

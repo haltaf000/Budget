@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="rules">
+    <h1>Budgets</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for budget in budgets %}
+            <tr>
+                <td>{{ budget.name }}</td>
+                <td>{{ budget.start_date }}</td>
+                <td>{{ budget.end_date }}</td>
+                <td>
+                    <a href="{% url 'budget_detail' budget.id %}">View</a>
+                    <a href="{% url 'edit_budget' budget.id %}">Edit</a>
+                    <a href="{% url 'delete_budget' budget.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'create_budget' %}">Add Budget</a>
+</section>
+{% endblock %}

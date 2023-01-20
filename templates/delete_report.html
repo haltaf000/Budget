@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="rules">
+
+    <h1>Delete Report</h1>
+    <p>Are you sure you want to delete this report?</p>
+    <form method="POST" action="{% url 'delete_report' report.id %}">
+        {% csrf_token %}
+        <input type="submit" value="Delete" class="btn btn-danger">
+    </form>
+
+</section>
+{% endblock %}
+
+
+
+
