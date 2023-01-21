@@ -2,11 +2,15 @@
 {% load static %}
 {% block content %}
 <section class="rules">
-    <h1>Create Expense</h1>
-    <form method="post">
+    <h1>Create Budget</h1>
+    <form method="post" action="{% url 'create_budget' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
+        <div class="form-group">
+            <label for="is_monthly">Is this a monthly budget?</label>
+            <input type="checkbox" id="is_monthly" name="is_monthly" value="True">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Budget</button>
     </form>
     <a href="{% url 'budget_list' %}">Back to expense list</a>
 </section>

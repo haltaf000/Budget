@@ -32,11 +32,16 @@ urlpatterns = [
     
     path('generate-report/', views.generate_report, name='generate_report'),
     path('report-form/', views.report_form, name='report_form'),
+    path('create-report/', views.create_report, name='create_report'),
     path('report-list/', views.report_list, name='report_list'),
     path('view/<int:report_id>/', views.view_report, name='view_report'),
     path('delete/<int:report_id>/', views.delete_report, name='delete_report'),
-    
-    path('forecast-budget/', views.forecast_budget, name='forecast_budget'),
+    path('download-report/<int:report_id>/', views.download_report, name='download_report'),
+    path('report-detail/<int:report_id>/', views.report_detail, name='report_detail'),
+
+
+    path('forecast-budget/<int:pk>/', views.forecast_budget, name='forecast_budget'),
+
 
 
 ]

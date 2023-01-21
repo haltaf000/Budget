@@ -16,7 +16,9 @@ class Budget(models.Model):
     name = models.CharField(max_length=255)
     start_date = models.DateField()
     end_date = models.DateField()
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='budget')
+    is_monthly = models.BooleanField(default=False)
+
     
     def __str__(self):
         return self.name
@@ -91,6 +93,7 @@ class Expense(models.Model):
 
 
 class Report(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="Something")
     start_date = models.DateField()
     end_date = models.DateField()
     budget = models.ForeignKey(Budget, on_delete=models.CASCADE, null=True)

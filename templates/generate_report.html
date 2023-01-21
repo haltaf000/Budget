@@ -2,11 +2,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Generate Report</h1>
-    <form method="POST" action="{% url 'generate_report' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Generate Report</button>
-    </form>
+<section class="rules">
+    <h2>Generate Report</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date">
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date">
+    <input type="submit" value="Generate Report">
+  </form>
+  
+  {% if incomes %}
+    <h3>Incomes</h3>
+    <table>
+      <tr>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Date Received</th>
+      </tr>
+      {% for income in incomes %}
+        <tr>
+          <td>{{ income.description }}</td>
+          <td>{{ income.amount }}</td>
+          <td>{{ income.date_received }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+  
+  {% if expenses %}
+    <h3>Expenses</h3>
+    <table>
+      <tr>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Date Incurred</th>
+      </tr>
+      {% for expense in expenses %}
+        <tr>
+          <td>{{ expense.name }}</td>
+          <td>{{ expense.amount }}</td>
+          <td>{{ expense.date_incurred }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+  
+  {% if total_income or total_expenses %}
+    <h3>Totals</h3>
+    <p>Total Income: {{ total_income }}</p>
+    <p>Total Expenses: {{ total_expenses }}</p>
+    <p>Remaining Balance: {{ remaining_balance }}</p>
+  {% endif %}
+</section>
 {% endblock %}
 

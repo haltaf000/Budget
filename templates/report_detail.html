@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="rules">
+  <h1>Report Details</h1>
+  <p>Start Date: {{ report.start_date }}</p>
+  <p>End Date: {{ report.end_date }}</p>
+  <p>Total Income: {{ report.total_income }}</p>
+  <p>Total Expenses: {{ report.total_expenses }}</p>
+  <p>Remaining Balance: {{ report.remaining_balance }}</p>
+  
+  <h2>Incomes</h2>
+  <ul>
+    {% for income in report.incomes.all %}
+      <li>{{ income.name }}: {{ income.amount }}</li>
+    {% endfor %}
+  </ul>
+  
+  <h2>Expenses</h2>
+  <ul>
+    {% for expense in report.expenses.all %}
+      <li>{{ expense.name }}: {{ expense.amount }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

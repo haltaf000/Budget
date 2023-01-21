@@ -145,7 +145,7 @@ section {
 .rules {
     padding-top: 55px;
     padding-bottom: 55px;
-    padding-left: 180px;
+    padding-left: 150px;
     padding-right: 150px;
     margin: 40px 225px;
     border-radius: 20px;
@@ -310,6 +310,7 @@ table, th, td {
 
   td {
     text-align: center;
+    width: auto;
   }
 
   th {

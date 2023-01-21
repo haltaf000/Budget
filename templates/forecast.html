@@ -3,7 +3,7 @@
 {% block content %}
 <section class="rules">
     <h1>Budget Forecast</h1>
-    <form method="post" action="{% url 'forecast_budget' %}">
+    <form method="post" action="{% url 'forecast_budget' budget.pk %}">
         {% csrf_token %}
         <div class="form-group">
             <label for="forecast_period">Forecast Period:</label>
@@ -36,3 +36,7 @@
     {% endif %}
 </section>
 {% endblock %}
+
+
+
+
