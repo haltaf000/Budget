@@ -286,16 +286,26 @@ section {
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-footer {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    position: relative;
-  }
+
+
+.content {
+    flex: 1; /* this will take up all the remaining space in the container */
+}
+
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+
 
 footer p{
+    padding-bottom: 20px;
     margin-top: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     color: rgb(0, 0, 0);
 }
@@ -321,3 +331,4 @@ table, th, td {
   main {
     margin-top: 50px;
   }
+
