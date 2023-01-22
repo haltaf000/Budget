@@ -11,8 +11,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from django.http import HttpResponse
-import matplotlib.pyplot as plt
-import numpy as np
+
 
 def home(request):
     total_income = Income.objects.all().aggregate(Sum('amount'))
