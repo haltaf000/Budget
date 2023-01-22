@@ -11,7 +11,8 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from django.http import HttpResponse
-
+import matplotlib.pyplot as plt
+import numpy as np
 
 def home(request):
     total_income = Income.objects.all().aggregate(Sum('amount'))
@@ -20,20 +21,15 @@ def home(request):
         budget_balance = (total_income['amount__sum'] or 0) - (total_expense['amount__sum'] or 0)
     else:
         budget_balance = None
-        
+
     context = {
         'total_income': total_income,
         'total_expense': total_expense,
         'budget_balance': budget_balance,
+        
     }
 
     return render(request, 'home.html', context)
-
-
-from datetime import datetime, timedelta
-
-
-
 
 def login_page(request):
     page = 'login'
@@ -278,8 +274,8 @@ def generate_report(request):
         form = ReportForm()
     return render(request, 'generate_report.html', {'form': form})
 
-def report_detail(request, pk):
-    report = Report.objects.get(pk=pk)
+def report_detail(request, report_id):
+    report = Report.objects.get(pk=report_id)
     context = {
         'report': report,
     }
@@ -409,12 +405,3 @@ def delete_report(request, report_id):
     report = get_object_or_404(Report, pk=report_id)
     report.delete()
     return redirect('report_list')
-
-
-@login_required(login_url='/login')
-def forecast_budget(request, pk):
-    budget = get_object_or_404(Budget, pk=pk)
-    forecast_income = budget.income * 1.1
-    forecast_expenses = budget.expenses * 1.2
-    forecast_balance = forecast_income - forecast_expenses
-    return render(request, 'forecast.html', {'budget': budget, 'forecast_income': forecast_income, 'forecast_expenses': forecast_expenses, 'forecast_balance': forecast_balance})

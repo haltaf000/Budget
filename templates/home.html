@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-    
-
     <div>
         {% if user.is_authenticated %}
         <section class="rules">
             <h1>BUDG-IT</h1>
             <h3>Budget Summary for {{budget.name}}</h3>
-            <p>Total Income: {{ total_income.amount__sum|floatformat:2 }}</p>
-            <p>Total Expense: {{ total_expense.amount__sum|floatformat:2 }}</p>
-            <p>Budget Balance: {{ budget_balance|floatformat:2 }}</p>
-
-        </section>
-        {% else%}
+            <p>Total Income: ${{ total_income.amount__sum|floatformat:2 }}</p>
+            <p>Total Expense: ${{ total_expense.amount__sum|floatformat:2 }}</p>
+            <p>Budget Balance: ${{ budget_balance|floatformat:2 }}</p>
+            <br>
+        {% else %}
         <section class="rules">
             <h1>BUDG-IT</h1>
             <p>Save, oraganize, and advance your finances. Don't ever be confused over your budget ever again.</p>
@@ -21,10 +19,5 @@
             </p>
         </section>
         {% endif %}
-
     </div>
-
-    <section>
-        
-    </section>
 {% endblock %}

@@ -38,10 +38,5 @@ urlpatterns = [
     path('delete/<int:report_id>/', views.delete_report, name='delete_report'),
     path('download-report/<int:report_id>/', views.download_report, name='download_report'),
     path('report-detail/<int:report_id>/', views.report_detail, name='report_detail'),
-
-
-    path('forecast-budget/<int:pk>/', views.forecast_budget, name='forecast_budget'),
-
-
-
+    
 ]
