@@ -24,7 +24,7 @@ class User(AbstractUser):
     )
 
     name = models.CharField(max_length=200, null=True)
-    income = models.IntegerField(choices=INCOME_CHOICES, null=True)
+    income = models.IntegerField(choices=INCOME_CHOICES, null=True, unique=True)
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True, blank=True)
     
