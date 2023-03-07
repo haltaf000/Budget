@@ -4,7 +4,27 @@ from django.db.models import Sum
 
 
 class User(AbstractUser):
+    INCOME_CHOICES = (
+        (15000, '$15,000 - $24,999'),
+        (25000, '$25,000 - $44,999'),
+        (30000, '$30,000 - $39,999'),
+        (40000, '$40,000 - $49,999'),
+        (50000, '$50,000 - $59,999'),
+        (60000, '$60,000 - $69,999'),
+        (70000, '$70,000 - $79,999'),
+        (80000, '$80,000 - $89,999'),
+        (90000, '$90,000 - $99,999'),
+        (100000, '$100,000 - $124,999'),
+        (125000, '$125,000 - $149,999'),
+        (150000, '$150,000 - $174,999'),
+        (175000, '$175,000 - $199,999'),
+        (200000, '$200,000 - $224,999'),
+        (225000, '$225,000 - $249,999'),
+        (250000, '$250,000 or more'),
+    )
+
     name = models.CharField(max_length=200, null=True)
+    income = models.IntegerField(choices=INCOME_CHOICES, null=True)
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True, blank=True)
     
@@ -109,23 +129,36 @@ class Report(models.Model):
         self.total_expenses = expenses.aggregate(Sum('amount'))['amount__sum']
         self.remaining_balance = self.total_income - self.total_expenses
         self.save()
-
-'''
-class SavingsGoal(models.Model):
-    name = models.CharField(max_length=255)
-    target_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    current_progress = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='savings_goals/', null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    deadline = models.DateField()
-    achieved = models.BooleanField(default=False)
-    
-    def add_savings(self, amount):
-        self.current_savings += amount
-        if self.current_savings >= self.goal_amount:
-            self.achieved = True
-        self.save()
         
+class SavingGoal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    income_range = models.ForeignKey(User, on_delete=models.CASCADE, related_name='income_range', to_field='income')
+    goal_name = models.CharField(max_length=255)
+    target_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    end_date = models.DateField()
+
+    
     def __str__(self):
         return self.goal_name
-'''
+    
+    
+class Saving(models.Model):
+    saving_goal = models.ForeignKey(SavingGoal, on_delete=models.CASCADE)
+    amount_saved = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateField()
+
+    def __str__(self):
+        return self.amount_saved
+    
+    
+class Leaderboard(models.Model):
+    saving_goal = models.ForeignKey(SavingGoal, on_delete=models.CASCADE, related_name='leaderboard')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='leaderboard_entries')
+    current_savings = models.DecimalField(max_digits=10, decimal_places=2)
+
+class Reward(models.Model):
+    saving_goal = models.ForeignKey(SavingGoal, on_delete=models.CASCADE, related_name='rewards')
+    name = models.CharField(max_length=255)
+    achievement_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    achieved = models.BooleanField(default=False)
+
